@@ -8,25 +8,27 @@ describe Austere::Endpoint do
     end
   end
 
-  describe "#get" do
-    it "should create a get request" do
-      block = Proc.new {}
-      Austere::Request.should_receive(:new).with(:get, &block)
+  [:get, :post, :put, :delete].each do |method|
+    describe "##{method}" do
+      it "should create a #{method} request" do
+        block = Proc.new {}
+        Austere::Request.should_receive(:new).with(method, &block)
 
-      Austere::Endpoint.new(anything) do |e|
-        e.get(&block)
-      end
-    end
-
-    it "should save the request" do
-      block = Proc.new {}
-      Austere::Request.stub(:new).and_return(:request)
-
-      endpoint = Austere::Endpoint.new(anything) do |e|
-        e.get(&block)
+        Austere::Endpoint.new(anything) do |e|
+          e.send(method, &block)
+        end
       end
 
-      endpoint.requests.should == [:request]
+      it "should save the request" do
+        block = Proc.new {}
+        Austere::Request.stub(:new).and_return(:request)
+
+        endpoint = Austere::Endpoint.new(anything) do |e|
+          e.send(method, &block)
+        end
+
+        endpoint.requests.should == [:request]
+      end
     end
   end
 end

@@ -3,7 +3,7 @@ module Austere
     attr_reader :endpoints
 
     def self.define(&block)
-      api = new(&block)
+      new(&block)
     end
 
     def initialize(&block)

@@ -20,42 +20,39 @@ describe Austere::Request do
   end
 
   describe "#response" do
-    it "should create a response object" do
-      request = Austere::Request.new(anything)
-
+    it "should add a new response to the list of responses" do
       block = Proc.new {}
-      Austere::Response.should_receive(:new).with(200).and_return(:response)
-      request.response(200, &block)
-    end
+      Austere::Response.should_receive(:new).with(201, &block).and_return(:response)
 
-    it "should add it to the list of responses" do
       request = Austere::Request.new(anything)
-
-      block = Proc.new {}
-      Austere::Response.should_receive(:new).and_return(:response)
-      request.response(anything) {}
-      request.responses.should == [:response]
+      request.response(201) {}
+      request.responses.should == { 201 => :response }
     end
   end
 
   describe "#header" do
-    it "should add a header to the list of headers" do
-      Austere::Header.stub(:new).and_return(:header)
-      request = Austere::Request.new(anything)
+    it "should add a new header to the list of headers" do
+      options = {foo: "bar"}
+      Austere::Header.should_receive(:new).
+        with("Content-Type", options).
+        and_return(:header)
 
-      request.header("Content-Type")
+      request = Austere::Request.new(anything)
+      request.header("Content-Type", options)
       request.headers.should == { "Content-Type" => :header }
-    end
-
-    it "should create a Validation with any given options" do
-      Austere::Header.should_receive(:new).with(foo: "Bar")
-      request = Austere::Request.new(anything)
-
-      request.header("Content-Type", foo: "Bar")
     end
   end
 
   describe "#parameter" do
+    it "should add a new parameter to the list of parameters" do
+      options = { bar: "Baz" }
+      Austere::Parameter.should_receive(:new).
+        with("per_page", options).
+        and_return(:parameter)
 
+      request = Austere::Request.new(anything)
+      request.parameter("per_page", options)
+      request.parameters.should == { "per_page" => :parameter }
+    end
   end
 end

@@ -1,8 +1,9 @@
 module Austere
   class Header
-    attr_reader :validation, :description
+    attr_reader :name, :validation, :description
 
-    def initialize(options = {})
+    def initialize(name, options = {})
+      @name = name
       @description = options.delete(:description)
       @validation = Austere::Validation.new(options)
     end

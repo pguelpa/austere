@@ -1,10 +1,11 @@
 module Austere
   class Request
-    attr_accessor :method, :headers, :responses
+    attr_accessor :method, :headers, :parameters, :responses
 
     def initialize(method, &block)
-      @responses = []
+      @responses = {}
       @headers = {}
+      @parameters = {}
       @method = method
     end
 
@@ -13,15 +14,15 @@ module Austere
     end
 
     def response(code, &block)
-      @responses << Austere::Response.new(code, &block)
+      @responses[code] = Austere::Response.new(code, &block)
     end
 
-    def header(field, options = {})
-      @headers[field] = Austere::Header.new(options)
+    def header(name, options = {})
+      @headers[name] = Austere::Header.new(name, options)
     end
 
     def parameter(name, options = {})
-
+      @parameters[name] = Austere::Parameter.new(name, options)
     end
   end
 end
