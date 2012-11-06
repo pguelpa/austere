@@ -1,5 +1,5 @@
 module Austere
-  class Body
+  class Body # TODO: Rename to Node
     attr_reader :elements
 
     def initialize(&block)

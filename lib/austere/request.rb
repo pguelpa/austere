@@ -2,11 +2,21 @@ module Austere
   class Request
     attr_accessor :method, :headers, :parameters, :responses
 
-    def initialize(method, &block)
+    def initialize(method, path)
       @responses = {}
       @headers = {}
       @parameters = {}
       @method = method
+
+      yield(self)
+    end
+
+    def description(description)
+      @description = description
+    end
+
+    def to_s
+      @description || ""
     end
 
     def body(&block)

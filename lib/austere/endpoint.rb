@@ -10,20 +10,20 @@ module Austere
       block.call(self)
     end
 
-    def get(&block)
-      @requests << Austere::Request.new(:get, &block)
+    def get(path, &block)
+      @requests << Austere::Request.new(:get, path, &block)
     end
 
-    def post(&block)
-      @requests << Austere::Request.new(:post, &block)
+    def post(path, &block)
+      @requests << Austere::Request.new(:post, path, &block)
     end
 
-    def put(&block)
-      @requests << Austere::Request.new(:put, &block)
+    def put(path, &block)
+      @requests << Austere::Request.new(:put, path, &block)
     end
 
-    def delete(&block)
-      @requests << Austere::Request.new(:delete, &block)
+    def delete(path, &block)
+      @requests << Austere::Request.new(:delete, path, &block)
     end
   end
 end

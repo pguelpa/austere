@@ -1,10 +1,14 @@
 module Austere
   class Lint
-    def initialize(app)
+    def initialize(app, api)
       @app = app
+      @api = api
     end
 
     def call(env)
+      # REQUEST_METHOD
+      # PATH_INFO
+      #
       # Check request
       # Alter if invalid
 

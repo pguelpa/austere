@@ -1,5 +1,3 @@
-require "singleton"
-
 require "austere/version"
 require "austere/api"
 require "austere/endpoint"

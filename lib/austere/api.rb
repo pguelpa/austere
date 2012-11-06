@@ -14,5 +14,10 @@ module Austere
     def endpoint(url, &block)
       @endpoints << Austere::Endpoint.new(url, &block)
     end
+
+    def match(method, path)
+      # Match a path against this API's endpoints
+      # Return the endpoint that it matches, or nil
+    end
   end
 end

@@ -12,10 +12,10 @@ describe Austere::Endpoint do
     describe "##{method}" do
       it "should create a #{method} request" do
         block = Proc.new {}
-        Austere::Request.should_receive(:new).with(method, &block)
+        Austere::Request.should_receive(:new).with(method, "foo", &block)
 
         Austere::Endpoint.new(anything) do |e|
-          e.send(method, &block)
+          e.send(method, "foo", &block)
         end
       end
 
@@ -24,7 +24,7 @@ describe Austere::Endpoint do
         Austere::Request.stub(:new).and_return(:request)
 
         endpoint = Austere::Endpoint.new(anything) do |e|
-          e.send(method, &block)
+          e.send(method, anything, &block)
         end
 
         endpoint.requests.should == [:request]
