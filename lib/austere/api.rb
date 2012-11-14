@@ -1,6 +1,7 @@
 module Austere
   class Api
     attr_reader :endpoints
+    attr_accessor :base
 
     def self.define(&block)
       new(&block)
@@ -16,6 +17,10 @@ module Austere
     end
 
     def match(method, path)
+      endpoints.each do |e|
+        request = e.match(method, path)
+        return request if request
+      end
       # Match a path against this API's endpoints
       # Return the endpoint that it matches, or nil
     end

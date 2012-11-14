@@ -31,7 +31,7 @@ class Counts < Austere::Body
 end
 
 api = Austere::Api.define do |api|
-  # api.base 'https://api.instagram.com/v1/'
+  api.base = 'https://api.instagram.com/v1/'
 
   api.endpoint "users" do |users|
     users.get ":user-id" do |r|

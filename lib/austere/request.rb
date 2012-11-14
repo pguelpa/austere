@@ -1,12 +1,13 @@
 module Austere
   class Request
-    attr_accessor :method, :headers, :parameters, :responses
+    attr_accessor :method, :path, :headers, :parameters, :responses
 
     def initialize(method, path)
       @responses = {}
       @headers = {}
       @parameters = {}
       @method = method
+      @path = path
 
       yield(self)
     end
