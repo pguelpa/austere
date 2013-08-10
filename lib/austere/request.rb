@@ -35,5 +35,9 @@ module Austere
     def parameter(name, options = {})
       @parameters[name] = Austere::Parameter.new(name, options)
     end
+
+    def match(method, path)
+
+    end
   end
 end

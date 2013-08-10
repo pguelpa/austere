@@ -1,5 +1,6 @@
 require "austere/version"
 require "austere/api"
+require "austere/path"
 require "austere/endpoint"
 require "austere/request"
 require "austere/header"
